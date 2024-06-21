@@ -20,26 +20,41 @@ assert jpdb.logged, 'SID not valid !'
 RPC = Presence(CLIENT_ID)
 RPC.connect()
 
+
+def update(details: str, state: str) -> None:
+    # Function to make the code a bit lighter
+    RPC.update(
+        large_image='logo',
+        large_text='\\(￣︶￣*\\))',
+        start=start_epoch,
+        state=state,
+        details=details
+    )
+
+
 while True:
     jpdb.refresh()
     due = jpdb.get_due()
     known = jpdb.get_known_words()
 
     if due:
-        RPC.update(
-            large_image='logo',
-            details=f'{due} Due cards remaining',
-            state=f'{known} Known words',
-            large_text='\\(￣︶￣*\\))',
-            start=start_epoch
+        update(
+            f'Reviewing | {due} cards remaining',
+            f'{known} Known words',
         )
     else:
-        RPC.update(
-            large_image='logo',
-            details=f'Learning...',
-            state=f'{known} Known words',
-            large_text='\\(￣︶￣*\\))',
-            start=start_epoch
-        )
+        stats: dict = jpdb.get_stats()
+        new_today = stats['new'][-1]
+        remaining_new = jpdb.new_cards_limit - new_today
+        if remaining_new > 0:
+            update(
+                f'Learning | {remaining_new} New cards remaining',
+                f'{known} Known words'
+            )
+        else:
+            update(
+                f'Learning new words !',
+                f'{known} Known words'
+            )
 
     time.sleep(10)

@@ -1,7 +1,7 @@
 # jpdb-presence
 Show your jpdb activity on Discord !
 ## Preview
-![jpdb presence example](https://cdn.discordapp.com/attachments/1193547778689863682/1253762333990326447/Vesktop_It1D2wVw5f.png?ex=667708aa&is=6675b72a&hm=ee0ebb1b8f12e6286e297279a493fd72b5eade9425752d6018f000a7989d36a0&)
+![jpdb presence example](https://cdn.discordapp.com/attachments/1193547778689863682/1253795827051401326/Vesktop_rfJvb6nZLY.jpg?ex=667727db&is=6675d65b&hm=93eae22748fdfa224e49f96174338ee96d8adf410142e69220d747bb9e7f760b&)
 
 ## Prerequisites
 Make sure [Python](https://www.python.org/downloads/) 3.8 or above is installed on your PC.
