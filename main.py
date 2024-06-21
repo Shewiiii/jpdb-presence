@@ -4,6 +4,14 @@ from dotenv import load_dotenv
 import os
 import time
 from jpdb import jpdbSession
+import logging
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
 
 
 # Load variables
@@ -32,10 +40,13 @@ def update(details: str, state: str) -> None:
     )
 
 
+logging.info('Rich presence is active !')
+
 while True:
     jpdb.refresh()
     due = jpdb.get_due()
     known = jpdb.get_known_words()
+    logging.info(f'Known words: {known}, Due cards: {due}')
 
     if due:
         update(
@@ -46,6 +57,7 @@ while True:
         stats: dict = jpdb.get_stats()
         new_today = stats['new'][-1]
         remaining_new = jpdb.new_cards_limit - new_today
+        logging.info(msg=f'New cards remaining: {remaining_new}')
         if remaining_new > 0:
             update(
                 f'Learning | {remaining_new} New cards remaining',

@@ -5,19 +5,9 @@ import re
 import logging
 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
-)
-
-
 def bs(url: str, sid: str) -> BeautifulSoup:
     # Function to make the code a bit lighter
-    logging.log(
-        level=logging.INFO, 
-        msg=f'Request: {url}'
-    )
+    logging.info(f'Request: {url}')
     return BeautifulSoup(
         requests.get(
             url=url,
