@@ -29,6 +29,7 @@ class jpdbSession:
         self.learn_page: str = learn_page
         self.raw: BeautifulSoup = BeautifulSoup()
         self.refresh()
+        self.logged: bool = not 'Login' in self.raw.text
 
     def refresh(self) -> None:
         raw = requests.get(
@@ -41,7 +42,7 @@ class jpdbSession:
             features='html.parser'
         )
 
-    def get_known_words(self, redundant: bool = True) -> int:
+    def get_known_words(self, redundant: bool = False) -> int:
         if redundant:
             table = self.raw.find('table', {'class': 'cross-table'})
             tr_list = table.find_all('tr')
@@ -49,8 +50,11 @@ class jpdbSession:
         else:
             return int(re.findall(r'\d+', self.raw.find('p').text)[0])
 
-    def get_due(self) -> int:
-        return int(self.raw.find('span', {'style': 'color: red;'}).text)
+    def get_due(self) -> int | None:
+        span = self.raw.find('span', {'style': 'color: red;'})
+        if not span:
+            return None
+        return int(span.text)
 
 
 if __name__ == '__main__':
