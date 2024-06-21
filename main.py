@@ -39,7 +39,7 @@ while True:
 
     if due:
         update(
-            f'Reviewing | {due} cards remaining',
+            f'Reviewing | {due} Cards remaining',
             f'{known} Known words',
         )
     else:
